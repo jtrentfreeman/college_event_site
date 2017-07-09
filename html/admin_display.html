@@ -86,20 +86,41 @@
         </style>
         <div id="map"></div>
             <script>
+
+              markers = []
               function initMap() {
                 var uluru = {lat: 28.6023, lng: -81.2000};
                 var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 15,
                   center: uluru
                 });
-                var marker = new google.maps.Marker({
-                  position: uluru,
-                  map: map
+
+                map.addListener('click', function(e) {
+
+                    // How are we going to store this?
+                    console.log(e.latLng.lat())
+                    console.log(e.latLng.lng())
+                    placeMarker(e.latLng, map);
+                    console.log(markers);
                 });
               }
+
+            function placeMarker(latLng, map) {
+
+                for (var i = 0; i < markers.length; i++){
+                    markers[i].setMap(null);
+                }
+
+                var new_marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map
+                });
+                markers.push(new_marker);
+            }
+
             </script>
-            <script async defer
-            src="">
+            // Comment this out before pushing to remote
+            <script async defer src="">
             </script>
         <br>
 
@@ -121,6 +142,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
   </body>
 </html>
