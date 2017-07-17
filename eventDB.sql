@@ -32,17 +32,14 @@ create table university (
 
 # stores event info
 create table event (
-  eveId       int(10) auto_increment,               /* automatic integer id for the event */
-  eName       varchar(30),                          /* name for event */
-  category    varchar(30),                          /* category for the event */
-  eDescr      varchar(500),                         /* social, fundraising, tech talks, etc. */
-  eTime       varchar(30),                          /* time of event */
-  eDate       date,                                 /* date for event (YEAR/MO/DAY format) */
-  location    varchar(50),                          /* where event is located */
-  uniId       int(10),                              /* id of university where event is held */
-  email       varchar(50),                          /* email of user that created the event */
-  primary key (eveId),
-  unique key eName (eName)         
+  event_id            int(10) auto_increment,
+  cal_id              int(10),                      /* contact calendar */
+  title               varchar(50),                
+  subtitle            varchar(50),
+  category            varchar(50)
+  uedescr             varchar(50),
+  contactPid          int(10),                    /* connects to contactPerson */
+  classification      int(1)
 );
 
 # registed student organization
@@ -64,6 +61,45 @@ create table review (
   eComment    varchar(100),                        /* Feed back, provided by the user */
   primary key (revId)
 );
+
+create table event (
+  event_id            int(10) auto_increment,
+  cal_id              int(10),
+  title               varchar(50),
+  subtitle            varchar(50),
+  category            varchar(50)
+  uedescr             varchar(50),
+  contactPid          int(10),
+  classification      int(1)
+);
+
+create table contactPerson (
+  contactPid          int(10) auto_increment,
+  email               varchar(50),
+  phone               varchar(50),
+  name                varchar(50)  
+);
+
+create table calendar (
+  cal_id              int(10) auto_increment,
+  building            varchar(50),
+  room                varchar(50),
+  sDate               date,
+  eDate               date,
+  sTime               varchar(50),
+  eTime               varchar(50),
+  latitude            varchar(50),
+  longitude           varchar(50)
+);
+
+select 'line break';
+
+insert into event(event_id, cal_id, title, subtitle, category, descr, contactPid, classification) values (1, 'Blood Drive', 'Service/Volunteer', 'Come join us on the Big Red Bus!', '1', '0');
+
+insert into contactPerson(email, phone, name) values ('BloodDrives@ucf.edu', '407-823-3094', 'Tee Rogers');
+
+
+
 
 
 # insert into user(uName, pass, acLevel, fName, lName, email, phone, uniId) values
@@ -89,14 +125,6 @@ insert into university(uniName, location, uDescr, numStud, photo) values ('UF', 
 insert into university(uniName, location, uDescr, numStud, photo) values ('FSU', 'Talahassee, Florida', 'Florida State', '50000', null);
 
 # insert into event(eName, category, eDescr, eTime, eDate, location, uniId, email) values
-
-insert into event(eName, category, eDescr, eTime, eDate, location, uniId, email) values ('Hack@UCF', 'Club', 'First meeting for the Cyber Security Club @ UCF', '16:00', '2017/08/25', 'HEC 101 @ UCF', '1', 'adminOne@knights.ucf.edu');
-
-insert into event(eName, category, eDescr, eTime, eDate, location, uniId, email) values ('Identity: An Exhibition of You', 'Arts Exhibit', 'This exhibit challenges our notions of personal identity using the familiar.', '10 a.m.', '2017/07/03', 'Orlando Science Center', '1', 'Molly.Reilly@ucf.edu');
-
-insert into event(eName, category, eDescr, eTime, eDate, location, uniId, email) values ('Ted Talk and Tea Tuesdays', 'Health', 'Come to the Wellness and Health Promotions Services office every Tuesday during summer B.', '10 a.m. - 2 p.m.', '2017/07/11', 'Recreation and Wellness Center: 111', '1', 'Pamela.Mills@ucf.edu');
-
-insert into event(eName, category, eDescr, eTime, eDate, location, uniId, email) values ('Grief and Loss Workshop', 'Workshop/Conference', 'This workshop provides a safe and supportive space for students to learn about different responses to loss.', '11 a.m. - 12 p.m.', '2017/07/11', 'Counseling and Psychological Services: Group Room', '1', 'Robert.Dwyer@ucf.edu');
 
 # insert into rso (name, rDescr, email, phone, head, uniId) values 
 
